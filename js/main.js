@@ -6,8 +6,10 @@ var dataUrl = "http://api.eia.gov/series/?api_key="+API_KEY+"&series_id="+SERIES
  
 var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];   /* NEEDS TO BE AUTOMATED */
 
-var CHART_WIDTH = 550;
+var CHART_WIDTH = 535;
 var CHART_HEIGHT = 300;
+var CANVAS_WIDTH = 545;
+var CANVAS_HEIGHT = 325;
 
 var CHART_PADDING_LEFT = 60;
 var CHART_PADDING_RIGHT = 10;
@@ -15,8 +17,8 @@ var CHART_PADDING_TOP = 30;
 var CHART_PADDING_BOTTOM = 15;
 
 // caculate carefully!!!
-var CHART_INNER_WIDTH = 500;
-var CHART_INNER_HEIGHT = 250;
+var CHART_INNER_WIDTH = 510;
+var CHART_INNER_HEIGHT = 255;
 
 var CHART_GRID_AXIS_WIDTH = 1;
 var CHART_GRID_AXIS_COLOR = "black";
@@ -54,7 +56,7 @@ var CHART_REFDG_DATA_FONT_COLOR = "#d35e13";
 var CHART_TITLE_FONT_STYLE = 'Helvetica, Arial';
 var CHART_TITLE_FONT_COLOR = "Black";
 var CHART_TITLE_FONT_SIZE = "16px";
-var CHART_UNIT_FONT_STYLE = '10px Helvetica, Arial';
+var CHART_UNIT_FONT_STYLE = '8px Helvetica, Arial';
 var CHART_UNIT_FONT_COLOR = "grey";
 
 var CHART_LINE_WIDTH = 4;
@@ -83,7 +85,7 @@ $(document).ready(function() {
 	var dataList = new Array();
 
 	// create canvas
-	var r = Raphael(document.getElementById("canvas"), CHART_WIDTH, CHART_HEIGHT);	
+	var r = Raphael(document.getElementById("canvas"), CANVAS_WIDTH, CANVAS_HEIGHT);	
 
 	// create connection
 	var xhr = new XMLHttpRequest();
