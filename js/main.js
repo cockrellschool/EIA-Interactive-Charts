@@ -118,7 +118,7 @@ $(document).ready(function() {
 				chartData[i][1] = Math.round(chartData[i][1]*100)/100; // round to 2 decimals
 				chartData[i][1] = commaSeparateNumber(chartData[i][1]); // comma separate
 				console.log(convertToMonth(pCoords.month));
-				pCoords.month = convertToMonth(pCoords.month);
+				pCoords.month = convertToMonth(pCoords.month); // set month string value (ex: 1 = January)
 				dataList.push({id:i, year:pCoords.year, month:pCoords.month, x:pCoords.x, y:pCoords.y, xdata:chartData[i][0], ydata:chartData[i][1]});
 			}
 
