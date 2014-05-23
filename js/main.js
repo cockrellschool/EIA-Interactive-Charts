@@ -36,7 +36,7 @@ var CHART_REFDG_WIDTH = 200;
 var CHART_REFDG_HEIGHT = 38;
 var CHART_REFDG_CORNER = 2;
 var CHART_REFDG_STROKE_WIDTH = .25;
-var CHART_REFDG_STROKE = "#666";
+var CHART_REFDG_STROKE = "black";
 var CHART_REFDG_FILL = "white";
 var CHART_REFDG_FILL_OP = 0.95;
 var CHART_REFDG_OFFX = 10;
@@ -44,11 +44,11 @@ var CHART_REFDG_OFFY = -20;
 
 var CHART_REFDG_FONT_STYLE = '10px Helvetica, Arial';
 var CHART_REFDG_FONT_SIZE = "14px";
-var CHART_REFDG_FONT_COLOR = "black";
+var CHART_REFDG_FONT_COLOR = "#666";
 var CHART_REFDG_TIME_FONT_STYLE = '10px Helvetica, Arial';
-var CHART_REFDG_TIME_FONT_COLOR = "black";
+var CHART_REFDG_TIME_FONT_COLOR = "#333";
 var CHART_REFDG_DATA_FONT_STYLE = '10px Helvetica, Arial';
-var CHART_REFDG_DATA_FONT_COLOR = "black";
+var CHART_REFDG_DATA_FONT_COLOR = "#d35e13";
 var CHART_REFDG_UNIT_FONT_STYLE = '10px Helvetica, Arial';
 var CHART_REFDG_UNIT_FONT_COLOR = "black";
 
@@ -143,8 +143,8 @@ $(document).ready(function() {
 			//draw reference dialog
 			refDialog = r.set();	// [0]:rectangle, [1] line 1, [2] line 2, [3] line 3			
 			refDialog.push(r.rect(0, 0, CHART_REFDG_WIDTH, CHART_REFDG_HEIGHT, CHART_REFDG_CORNER).attr({"stroke-width":CHART_REFDG_STROKE_WIDTH,"stroke":CHART_REFDG_STROKE,"fill":CHART_REFDG_FILL,"fill-opacity":CHART_REFDG_FILL_OP}));
-			refDialog.push(r.text(10, 10, CHART_START_YEAR+"-"+CHART_START_MONTH).attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
-			refDialog.push(r.text(10, 25, "data").attr({"font":CHART_REFDG_DATA_FONT_STYLE,"font-size":CHART_REFDG_FONT_SIZE,"fill":CHART_REFDG_DATA_FONT_COLOR,"text-anchor":"start"}));
+			refDialog.push(r.text(10, 10, CHART_START_YEAR+"-"+CHART_START_MONTH).attr({"font":CHART_REFDG_FONT_STYLE,"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
+			refDialog.push(r.text(10, 25, "data").attr({"font":CHART_REFDG_DATA_FONT_STYLE,"font-size":CHART_REFDG_FONT_SIZE,"font-weight":"bold","fill":CHART_REFDG_DATA_FONT_COLOR,"text-anchor":"start"}));
 			//refDialog.push(r.text(10, 40, CHART_UNIT).attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
 
 			refDialog.hide();
