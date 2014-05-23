@@ -1,23 +1,22 @@
 var API_KEY = "0FB373836A1B16D4B0700CCCEC3C1845";
 var SERIES_ID = "ELEC.GEN.ALL-US-99.M";
-//var dataUrl = "http://api.eia.gov/series?api_key="+API_KEY+"&series_id="+SERIES_ID;
 var dataUrl = "http://api.eia.gov/series/?api_key="+API_KEY+"&series_id="+SERIES_ID;
 
-var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];
+// ------------------------------------------------------------
+ 
+var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];   /* NEEDS TO BE AUTOMATED */
 
-var mult = .5;
-
-var CHART_WIDTH = 1100 * mult;
-var CHART_HEIGHT = 600 * mult;
+var CHART_WIDTH = 550;
+var CHART_HEIGHT = 300;
 
 var CHART_PADDING_LEFT = 60;
-var CHART_PADDING_RIGHT = 20 * mult;
-var CHART_PADDING_TOP = 60 * mult;
-var CHART_PADDING_BOTTOM = 30 * mult;
+var CHART_PADDING_RIGHT = 10;
+var CHART_PADDING_TOP = 30;
+var CHART_PADDING_BOTTOM = 15;
 
 // caculate carefully!!!
-var CHART_INNER_WIDTH = 1000 * mult;
-var CHART_INNER_HEIGHT = 510 * mult;
+var CHART_INNER_WIDTH = 500;
+var CHART_INNER_HEIGHT = 250;
 
 var CHART_GRID_AXIS_WIDTH = 1;
 var CHART_GRID_AXIS_COLOR = "black";
@@ -25,36 +24,36 @@ var CHART_GRID_LINE_WIDTH = 0.25;
 var CHART_GRID_LINE_COLOR = "black";
 
 var CHART_GRID_FONT_STYLE = '12px Helvetica, Arial';
-var CHART_GRID_FONT_COLOR = "black";
+var CHART_GRID_FONT_COLOR = "#555";
 
 var CHART_REFLINE_WIDTH = 1;
 var CHART_REFLINE_COLOR = "gray";
 var CHART_REFNODE_RADIUS = 5;
 var CHART_REFNODE_COLOR = "#813600";
 
-var CHART_REFDG_WIDTH = 200;
+var CHART_REFDG_WIDTH = 200; 
 var CHART_REFDG_HEIGHT = 38;
 var CHART_REFDG_CORNER = 2;
-var CHART_REFDG_STROKE_WIDTH = .25;
+var CHART_REFDG_STROKE_WIDTH = .3;
 var CHART_REFDG_STROKE = "black";
 var CHART_REFDG_FILL = "white";
 var CHART_REFDG_FILL_OP = 0.95;
 var CHART_REFDG_OFFX = 10;
 var CHART_REFDG_OFFY = -20;
 
-var CHART_REFDG_FONT_STYLE = '10px Helvetica, Arial';
+var CHART_REFDG_FONT_STYLE = 'Helvetica, Arial';
 var CHART_REFDG_FONT_SIZE = "14px";
 var CHART_REFDG_FONT_COLOR = "#666";
-var CHART_REFDG_TIME_FONT_STYLE = '10px Helvetica, Arial';
+var CHART_REFDG_TIME_FONT_STYLE = 'Helvetica, Arial';
 var CHART_REFDG_TIME_FONT_COLOR = "#333";
-var CHART_REFDG_DATA_FONT_STYLE = '10px Helvetica, Arial';
+var CHART_REFDG_DATA_FONT_STYLE = 'Helvetica, Arial';
 var CHART_REFDG_DATA_FONT_COLOR = "#d35e13";
-var CHART_REFDG_UNIT_FONT_STYLE = '10px Helvetica, Arial';
-var CHART_REFDG_UNIT_FONT_COLOR = "black";
+// var CHART_REFDG_UNIT_FONT_STYLE = '10px Helvetica, Arial';
+// var CHART_REFDG_UNIT_FONT_COLOR = "black";
 
-var CHART_TITLE_FONT_STYLE = '20px Helvetica, Arial';
+var CHART_TITLE_FONT_STYLE = 'Helvetica, Arial';
 var CHART_TITLE_FONT_COLOR = "Black";
-var CHART_TITLE_FONT_SIZE = "16px"
+var CHART_TITLE_FONT_SIZE = "16px";
 var CHART_UNIT_FONT_STYLE = '10px Helvetica, Arial';
 var CHART_UNIT_FONT_COLOR = "grey";
 
@@ -62,9 +61,9 @@ var CHART_LINE_WIDTH = 4;
 var CHART_LINE_COLOR = "#d35e13";
 
 var CHART_FREQ = "M";
-var CHART_START_YEAR = 2001;  // Needs to be dynamically read
+var CHART_START_YEAR = 2001;   /* NEEDS TO BE READ FROM DATA */
 var CHART_START_MONTH = 1;
-var CHART_END_YEAR = new Date().getFullYear();
+var CHART_END_YEAR = new Date().getFullYear(); /* IS THIS CORRECT? SHOULD IT BE READ FROM DATA? */
 var CHART_END_MONTH = 12;
 
 var CHART_ROW_COUNT = Y_VALUE_LIST.length-1;
@@ -82,6 +81,7 @@ var CHART_UPDATED = "last updated";
 $(document).ready(function() {
 	var refLine = null, refNode = null, refDialog = null, refBound = null;
 	var dataList = new Array();
+
 	// create canvas
 	var r = Raphael(document.getElementById("canvas"), CHART_WIDTH, CHART_HEIGHT);	
 
@@ -125,7 +125,7 @@ $(document).ready(function() {
 			}
 
 			// draw title and units
-			r.text(0, 10, CHART_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "font-size":CHART_TITLE_FONT_SIZE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
+			r.text(5, 10, CHART_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "font-size":CHART_TITLE_FONT_SIZE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
 			//r.text(0, 40, CHART_UNIT).attr({"font":CHART_UNIT_FONT_STYLE, "fill":CHART_UNIT_FONT_COLOR, "text-anchor":"start"});
 
 			// draw chart
@@ -302,14 +302,11 @@ $(document).ready(function() {
 
 	function convertToMonth(int) {
 		var monthArr = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
-
 		return monthArr[int-1];
 	}
 
 	function fixUnits(unit) {
-
 		var newUnit = "";
-
 		switch(unit){
 			case 'thousand megawatthours':
 			newUnit = "thousand MWh"
