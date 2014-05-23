@@ -7,7 +7,7 @@ var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];
 
 var mult = .5;
 
-var CHART_WIDTH = 1200 * mult;
+var CHART_WIDTH = 1100 * mult;
 var CHART_HEIGHT = 600 * mult;
 
 var CHART_PADDING_LEFT = 60;
@@ -32,17 +32,18 @@ var CHART_REFLINE_COLOR = "gray";
 var CHART_REFNODE_RADIUS = 5;
 var CHART_REFNODE_COLOR = "#813600";
 
-var CHART_REFDG_WIDTH = 150;
-var CHART_REFDG_HEIGHT = 50;
+var CHART_REFDG_WIDTH = 200;
+var CHART_REFDG_HEIGHT = 38;
 var CHART_REFDG_CORNER = 2;
 var CHART_REFDG_STROKE_WIDTH = .25;
-var CHART_REFDG_STROKE = "black";
+var CHART_REFDG_STROKE = "#666";
 var CHART_REFDG_FILL = "white";
 var CHART_REFDG_FILL_OP = 0.95;
 var CHART_REFDG_OFFX = 10;
 var CHART_REFDG_OFFY = -20;
 
 var CHART_REFDG_FONT_STYLE = '10px Helvetica, Arial';
+var CHART_REFDG_FONT_SIZE = "14px";
 var CHART_REFDG_FONT_COLOR = "black";
 var CHART_REFDG_TIME_FONT_STYLE = '10px Helvetica, Arial';
 var CHART_REFDG_TIME_FONT_COLOR = "black";
@@ -53,6 +54,7 @@ var CHART_REFDG_UNIT_FONT_COLOR = "black";
 
 var CHART_TITLE_FONT_STYLE = '20px Helvetica, Arial';
 var CHART_TITLE_FONT_COLOR = "Black";
+var CHART_TITLE_FONT_SIZE = "16px"
 var CHART_UNIT_FONT_STYLE = '10px Helvetica, Arial';
 var CHART_UNIT_FONT_COLOR = "grey";
 
@@ -117,13 +119,13 @@ $(document).ready(function() {
 				var pCoords = getCoords(chartData[i][0], chartData[i][1]);
 				chartData[i][1] = Math.round(chartData[i][1]*100)/100; // round to 2 decimals
 				chartData[i][1] = commaSeparateNumber(chartData[i][1]); // comma separate
-				console.log(convertToMonth(pCoords.month));
+				// console.log(convertToMonth(pCoords.month));
 				pCoords.month = convertToMonth(pCoords.month); // set month string value (ex: 1 = January)
 				dataList.push({id:i, year:pCoords.year, month:pCoords.month, x:pCoords.x, y:pCoords.y, xdata:chartData[i][0], ydata:chartData[i][1]});
 			}
 
 			// draw title and units
-			r.text(0, 10, CHART_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
+			r.text(0, 10, CHART_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "font-size":CHART_TITLE_FONT_SIZE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
 			//r.text(0, 40, CHART_UNIT).attr({"font":CHART_UNIT_FONT_STYLE, "fill":CHART_UNIT_FONT_COLOR, "text-anchor":"start"});
 
 			// draw chart
@@ -139,15 +141,12 @@ $(document).ready(function() {
 						.attr({"stroke-width":0,"fill":CHART_REFNODE_COLOR})
 						.hide();
 			//draw reference dialog
-			refDialog = r.set();	// [0]:rectangle, [1] line 1, [2] line 2, [3] line 3
-			refDialog.push(r.rect(0, 0, CHART_REFDG_WIDTH, CHART_REFDG_HEIGHT, CHART_REFDG_CORNER)
-							.attr({"stroke-width":CHART_REFDG_STROKE_WIDTH,"stroke":CHART_REFDG_STROKE,"fill":CHART_REFDG_FILL,"fill-opacity":CHART_REFDG_FILL_OP}));
-			refDialog.push(r.text(10, 10, CHART_START_YEAR+"-"+CHART_START_MONTH)
-							.attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
-			refDialog.push(r.text(10, 25, "data")
-							.attr({"font":CHART_REFDG_DATA_FONT_STYLE,"fill":CHART_REFDG_DATA_FONT_COLOR,"text-anchor":"start"}));
-			refDialog.push(r.text(10, 40, CHART_UNIT)
-							.attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
+			refDialog = r.set();	// [0]:rectangle, [1] line 1, [2] line 2, [3] line 3			
+			refDialog.push(r.rect(0, 0, CHART_REFDG_WIDTH, CHART_REFDG_HEIGHT, CHART_REFDG_CORNER).attr({"stroke-width":CHART_REFDG_STROKE_WIDTH,"stroke":CHART_REFDG_STROKE,"fill":CHART_REFDG_FILL,"fill-opacity":CHART_REFDG_FILL_OP}));
+			refDialog.push(r.text(10, 10, CHART_START_YEAR+"-"+CHART_START_MONTH).attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
+			refDialog.push(r.text(10, 25, "data").attr({"font":CHART_REFDG_DATA_FONT_STYLE,"font-size":CHART_REFDG_FONT_SIZE,"fill":CHART_REFDG_DATA_FONT_COLOR,"text-anchor":"start"}));
+			//refDialog.push(r.text(10, 40, CHART_UNIT).attr({"font":CHART_REFDG_FONT_STYLE,"fill":CHART_REFDG_FONT_COLOR,"text-anchor":"start"}));
+
 			refDialog.hide();
 
 			// draw bounding box for mouse event listener
@@ -259,7 +258,7 @@ $(document).ready(function() {
 			dx = px-CHART_REFDG_OFFX-CHART_REFDG_WIDTH;
 		}
 		refDialog[1].attr({"text":(dataList[dataid].month+" "+dataList[dataid].year)});
-		refDialog[2].attr({"text":dataList[dataid].ydata});
+		refDialog[2].attr({"text":(dataList[dataid].ydata+" "+CHART_UNIT)});
 		refDialog.transform("T"+dx+","+dy);
 	}
 
@@ -313,7 +312,7 @@ $(document).ready(function() {
 
 		switch(unit){
 			case 'thousand megawatthours':
-			newUnit = "1000 MWh"
+			newUnit = "thousand MWh"
 			break;
 			default:
 			break;
