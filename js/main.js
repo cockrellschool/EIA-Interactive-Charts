@@ -1,11 +1,12 @@
+
+/* Should this go in html? */
+
+
+
+// -----------------------  DO NOT EDIT BELOW ----------------------------------
+
 var API_KEY = "0FB373836A1B16D4B0700CCCEC3C1845";
-var SERIES_ID = "ELEC.GEN.ALL-US-99.M";
 var dataUrl = "http://api.eia.gov/series/?api_key="+API_KEY+"&series_id="+SERIES_ID;
-
-// ------------------------------------------------------------
- 
-var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];   /* NEEDS TO BE AUTOMATED */
-
 var CHART_WIDTH = 535;
 var CHART_HEIGHT = 300;
 var CANVAS_WIDTH = 545;
@@ -63,9 +64,9 @@ var CHART_LINE_WIDTH = 4;
 var CHART_LINE_COLOR = "#d35e13";
 
 var CHART_FREQ = "M";
-var CHART_START_YEAR = 2001;   /* NEEDS TO BE READ FROM DATA */
+var CHART_START_YEAR = 1900; 
 var CHART_START_MONTH = 1;
-var CHART_END_YEAR = new Date().getFullYear(); /* IS THIS CORRECT? SHOULD IT BE READ FROM DATA? */
+var CHART_END_YEAR = new Date().getFullYear();
 var CHART_END_MONTH = 12;
 
 var CHART_ROW_COUNT = Y_VALUE_LIST.length-1;
