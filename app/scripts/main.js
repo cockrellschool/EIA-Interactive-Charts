@@ -133,8 +133,8 @@ $(document).ready(function() {
 			refDialog.hide();
 			// draw dataset title
 			r.text(0, 10, DATASET_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "font-size":CHART_TITLE_FONT_SIZE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
-			//r.text(CHART_WIDTH/2, CHART_HEIGHT - 20, X_AXIS_LABEL).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR});
-			r.text(10, CHART_HEIGHT/2 - 20, CHART_UNIT).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR}).attr({transform: "r" + -90});
+			r.text(CHART_WIDTH/2 + 20, CHART_HEIGHT - 20, X_AXIS_LABEL).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR});
+			r.text(10, CHART_HEIGHT/2 - 20, CHART_UNIT.capitalize()).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR}).attr({transform: "r" + -90});
 
 			// get first data
 			var chartData = response["series"][0]["data"];
@@ -246,6 +246,17 @@ $(document).ready(function() {
 			}
 		}
 
+		// console.log(pathStr);
+
+		 //(canvas, pathstr, duration, attr, callback)
+		// drawpath(r, 
+  //         		 pathStr, 
+  //         		 500, 
+  //         		{ stroke: 'black', 'stroke-width': 2, 'stroke-opacity': 1, fill: 'none', 'fill-opacity': 0 }, 
+		//           function(){
+		//               //alert("All done");    // trigger whatever you want here
+		//           } );
+
 		this.path(pathStr)
 			.data("cid", cid)
 			.attr({"stroke-width":CHART_LINE_WIDTH, "stroke":CHART_LINE_COLOR, "stroke-linejoin":"round",'stroke-linecap': "round"})
@@ -348,13 +359,44 @@ $(document).ready(function() {
 		var newUnit = "";
 		switch(unit){
 			case 'thousand megawatthours':
-			newUnit = "thousand MWh"
+			newUnit = "Thousand MWh"
 			break;
 			default:
 			break;
 		}
 
 		return newUnit;
+	};
+
+	function drawpath( canvas, pathstr, duration, attr, callback ){
+	    var guide_path = canvas.path( pathstr ).attr( { stroke: "none", fill: "none" } );
+	    var path = canvas.path( guide_path.getSubpath( 0, 1 ) ).attr( attr );
+	    var total_length = guide_path.getTotalLength( guide_path );
+	    var last_point = guide_path.getPointAtLength( 0 );
+	    var start_time = new Date().getTime();
+	    var interval_length = 50;
+	    var result = path;        
+
+	    var interval_id = setInterval( function()
+	    {
+	        var elapsed_time = new Date().getTime() - start_time;
+	        var this_length = elapsed_time / duration * total_length;
+	        var subpathstr = guide_path.getSubpath( 0, this_length );            
+	        attr.path = subpathstr;
+
+	        path.animate( attr, interval_length );
+	        if ( elapsed_time >= duration )
+	        {
+	            clearInterval( interval_id );
+	            if ( callback != undefined ) callback();
+	                guide_path.remove();
+	        }                                       
+	    }, interval_length );  
+	    return result;
+	}
+
+	String.prototype.capitalize = function() {
+	    return this.replace(/(?:^|\s)\S/g, function(a) { return a.toUpperCase(); });
 	};
 
 });	// end $(document).ready

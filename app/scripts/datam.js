@@ -1,4 +1,5 @@
 var DATASET_TITLE = "";
+var X_AXIS_LABEL = "Year";
 var DATASET = [
 	{
 		"SID": "ELEC.GEN.ALL-US-99.M",
