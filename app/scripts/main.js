@@ -42,10 +42,14 @@ var CHART_REFDG_DATA_FONT_COLOR = "#d35e13";
 // var CHART_REFDG_UNIT_FONT_COLOR = "black";
 
 var CHART_TITLE_FONT_STYLE = 'Helvetica, Arial';
-var CHART_TITLE_FONT_COLOR = "Black";
-var CHART_TITLE_FONT_SIZE = "16px";
+var CHART_TITLE_FONT_COLOR = 'Black';
+var CHART_TITLE_FONT_SIZE = '16px';
 var CHART_UNIT_FONT_STYLE = '8px Helvetica, Arial';
-var CHART_UNIT_FONT_COLOR = "grey";
+var CHART_UNIT_FONT_COLOR = 'grey';
+
+var AXIS_LABEL_FONT_STYLE = 'Helvetica, Arial';
+var AXIS_LABEL_COLOR = '#777';
+var AXIS_LABEL_FONT_SIZE = '12px';
 
 var CHART_LINE_WIDTH = 3;
 var CHART_LINE_COLOR = "#d35e13";
@@ -129,6 +133,8 @@ $(document).ready(function() {
 			refDialog.hide();
 			// draw dataset title
 			r.text(0, 10, DATASET_TITLE).attr({"font":CHART_TITLE_FONT_STYLE, "font-size":CHART_TITLE_FONT_SIZE, "fill":CHART_TITLE_FONT_COLOR, "text-anchor":"start"});
+			//r.text(CHART_WIDTH/2, CHART_HEIGHT - 20, X_AXIS_LABEL).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR});
+			r.text(10, CHART_HEIGHT/2 - 20, CHART_UNIT).attr({"font":AXIS_LABEL_FONT_STYLE, "font-size":AXIS_LABEL_FONT_SIZE, "fill":AXIS_LABEL_COLOR}).attr({transform: "r" + -90});
 
 			// get first data
 			var chartData = response["series"][0]["data"];

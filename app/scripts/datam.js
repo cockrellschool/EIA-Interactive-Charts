@@ -23,10 +23,10 @@ var DATASET = [
 ];
 var Y_VALUE_LIST = [0, 100000, 200000, 300000, 400000, 500000];
 
-var CHART_WIDTH = 540;
+var CHART_WIDTH = 560;
 var CHART_HEIGHT = 320;
 
-var CHART_PADDING_LEFT = 60;
+var CHART_PADDING_LEFT = 80;
 var CHART_PADDING_TOP = 10;
 
 // caculate carefully!!!
