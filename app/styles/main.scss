@@ -10,12 +10,14 @@ body {
 h1{
     color: #777;
     font-size: 1.5em;
-    margin-left: .25em;
+    margin: 0 0 0 .15em;
 }
 h2{
     color: #777;
     font-size: .8em;
-    margin-left: .25em;
+     margin: 0 0 1em .25em;
+    font-weight: normal;
+    width: 500px;
 }
 .hero-unit {
     margin: 50px auto 0 auto;
